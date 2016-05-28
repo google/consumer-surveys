@@ -193,7 +193,7 @@ def main():
             parser.error('--survey_id is required for this operation.')
         if args.autostart_max_cost_per_response:
 	    start_survey(cs, args.survey_id, args.autostart_max_cost_per_response)
-	else:
+        else:
 	    start_survey(cs, args.survey_id)
 
 

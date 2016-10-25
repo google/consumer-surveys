@@ -16,7 +16,7 @@ setuptools.setup(
     description=(
       "Client API for Google Surveys API. NOTE: This package is deprecated and"
       " will be removed on December 1, 2016. Please use the Google API Python"
-      " Client instead."
+      " Client instead: https://developers.google.com/api-client-library/python/."
     ),
     zip_safe=True,
     include_package_data=True,

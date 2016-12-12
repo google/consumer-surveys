@@ -1,4 +1,4 @@
-﻿/* Copyright 2015 Google Inc. All Rights Reserved.
+﻿/* Copyright 2016 Google Inc. All Rights Reserved.
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -13,12 +13,12 @@
   limitations under the License.
 */
 
-/* Command-line tool for interacting with the Google Consumer Surveys API.
+/* Command-line tool for interacting with the Google Surveys API.
 To run, generate a client secret using https://console.developers.google.com/
 under the APIs and Auth Tab for your project. Then download the key.p12 file.
 
 For more instructions on how to obtain the local files necessary for OAuth
-authorization, please see https://github.com/google/consumer-surveys
+authorization, please see https://github.com/google/surveys
 
 Use the following command line arguments.
 To create a survey:
@@ -36,8 +36,8 @@ using System;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using Google.Apis.Auth.OAuth2;
-using Google.Apis.ConsumerSurveys.v2;
-using Google.Apis.ConsumerSurveys.v2.Data;
+using Google.Apis.Surveys.v2;
+using Google.Apis.Surveys.v2.Data;
 using Google.Apis.Services;
 using NDesk.Options;
 using System.IO;
@@ -127,7 +127,7 @@ namespace ConsumerSurveysSample
 
             if (cs == null)
             {
-                Console.WriteLine("\nA Consumer survey service was not created.");
+                Console.WriteLine("\nA Survey service was not created.");
                 return;
             }
 
@@ -182,13 +182,13 @@ namespace ConsumerSurveysSample
         /// <summary>
         /// Creates a new survey using a json object containing necessary survey fields.
         /// </summary>
-        /// <param name="cs"> The consumer survey service used to send the HTTP requests.</param>
+        /// <param name="cs"> The survey service used to send the HTTP requests.</param>
         /// <param name="owners"> The list of owners that will be in the newly created survey.</param>
         /// <returns>
         /// A Survey object containing information about the survey.
         /// </returns>
 
-        private static Survey CreateSurvey(ConsumerSurveysService cs, List<String> owners)
+        private static Survey CreateSurvey(SurveysService cs, List<String> owners)
         {
             List<string> langs = new List<string>();
             langs.Add("en-US");
@@ -225,14 +225,14 @@ namespace ConsumerSurveysSample
         /// <summary>
         /// Updates the response count of the survey.
         /// </summary>
-        /// <param name="cs"> The consumer survey service used to send the HTTP requests.</param>
+        /// <param name="cs"> The survey service used to send the HTTP requests.</param>
         /// <param name="surveyId"> The survey id for which we are updating the response count for.</param>
         /// <param name="responseCount">  An integer specifing the new response count for the survey.</param>
         /// <returns>
         /// A Survey object containing information about the survey.
         /// </returns>
         private static Survey UpdateSurveyResponseCount(
-            ConsumerSurveysService cs, String surveyId, int responseCount)
+            SurveysService cs, String surveyId, int responseCount)
         {
             Survey survey = new Survey()
             {
@@ -245,12 +245,12 @@ namespace ConsumerSurveysSample
         /// <summary>
         /// Sends the survey to the review process and it is then started.
         /// </summary>
-        /// <param name="cs"> The consumer survey service used to send the HTTP requests.</param>
+        /// <param name="cs"> The survey service used to send the HTTP requests.</param>
         /// <param name="surveyId"> The survey id of the survey we are starting.</param>
         /// <returns>
         /// A Survey object containing information about the survey.
         /// </returns>      
-        private static Survey StartSurvey(ConsumerSurveysService cs, String surveyId)
+        private static Survey StartSurvey(SurveysService cs, String surveyId)
         {
             Survey survey = new Survey()
             {
@@ -263,12 +263,12 @@ namespace ConsumerSurveysSample
         /// <summary>
         /// Returns the Survey object for tbe specified survey id.
         /// </summary>
-        /// <param name="cs"> The consumer survey service used to send the HTTP requests.</param>
+        /// <param name="cs"> The survey service used to send the HTTP requests.</param>
         /// <param name="surveyId"> The survey id of the Survey object we need.</param>
         /// <returns>
         /// A Survey object containing information about the survey.
         /// </returns> 
-        private static Survey GetSurvey(ConsumerSurveysService cs, String surveyId)
+        private static Survey GetSurvey(SurveysService cs, String surveyId)
         {
             Survey survey = cs.Surveys.Get(surveyId).Execute();
             return survey;
@@ -277,8 +277,8 @@ namespace ConsumerSurveysSample
         /// <summary>
         /// Prints the surveys that are owned by the given user.
         /// </summary>
-        /// <param name="cs"> The consumer survey service used to send the HTTP requests.</param>
-        private static void ListSurveys(ConsumerSurveysService cs)
+        /// <param name="cs"> The survey service used to send the HTTP requests.</param>
+        private static void ListSurveys(SurveysService cs)
         {
             var surveyListResponse = cs.Surveys.List().Execute();
             foreach (Survey survey in surveyListResponse.Resources)
@@ -290,24 +290,24 @@ namespace ConsumerSurveysSample
         /// <summary>
         /// Writes the survey results into a xls file.
         /// </summary>
-        /// <param name="cs"> The consumer survey service used to send the HTTP requests.</param>
+        /// <param name="cs"> The survey service used to send the HTTP requests.</param>
         /// <param name="surveyId"> The survey id for which we are downloading the results for.</param>
         /// <param name="resultFile"> The file name which we write the survey results to.</param>
         private static void GetSurveyResults(
-            ConsumerSurveysService cs, String surveyId, String resultFile)
+            SurveysService cs, String surveyId, String resultFile)
         {
             FileStream fileSteam = new FileStream(resultFile, FileMode.Create);
             cs.Results.Get(surveyId).Download(fileSteam);
         }
 
         /// <summary>
-        /// Creates a Consumersurveys service that be used to send HTTP requests.
+        /// Creates a Surveys service that be used to send HTTP requests.
         /// </summary>
         /// <param name="serviceAccointEmail"> The service account email we are using for 2LO.</param>
         /// <returns>
-        /// The consumer survey service used to send the HTTP requests.
+        /// The survey service used to send the HTTP requests.
         /// </returns>         
-        private static ConsumerSurveysService GetServiceAccountCredential(
+        private static SurveysService GetServiceAccountCredential(
             String serviceAccountEmail)
         {
             X509Certificate2 certificate;
@@ -324,13 +324,13 @@ namespace ConsumerSurveysSample
                 new ServiceAccountCredential.Initializer(serviceAccountEmail)
                 {
                     Scopes = new[] {
-                        "https://www.googleapis.com/auth/consumersurveys",
-                        "https://www.googleapis.com/auth/consumersurveys.readonly",
+                        "https://www.googleapis.com/auth/surveys",
+                        "https://www.googleapis.com/auth/surveys.readonly",
                         "https://www.googleapis.com/auth/userinfo.email" }
                 }.FromCertificate(certificate));
         
-            // Creating the consumer surveys service.
-            var service = new ConsumerSurveysService(new BaseClientService.Initializer()
+            // Creating the surveys service.
+            var service = new SurveysService(new BaseClientService.Initializer()
             {
                 HttpClientInitializer = credential,
             });

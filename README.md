@@ -6,6 +6,8 @@ The Google Surveys team will do their best to keep the this repository up-to-dat
 
 For more information on the Google Suverys API, check out the [Google Surveys API developer site](https://developers.google.com/surveys/).
 
+To report an issue or request a feature, please [create a new issue](https://issuetracker.google.com/issues/new?component=180195) via Google’s Issue Tracker.  For sales and product questions, please visit [Google Surveys support](https://support.google.com/surveys).
+
 -----
 
 # Contents

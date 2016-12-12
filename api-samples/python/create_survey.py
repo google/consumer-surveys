@@ -12,7 +12,7 @@ def create_survey(cs, owner_emails):
 
     Args:
         cs: The Surveys service used to send the HTTP requests.
-        owner_emails: List of survey owner emails (space separated) for a new survey.
+        owner_emails: List of survey owner emails for a new survey.
     Returns:
         A dictionary containing the survey id of the created survey.
     """

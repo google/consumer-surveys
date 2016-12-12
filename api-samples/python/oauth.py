@@ -8,10 +8,10 @@ from oauth2client import clientsecrets
 from oauth2client.service_account import ServiceAccountCredentials
 
 ACCOUNT_SECRET = 'account_secret.json'
-API_DISCOVERY_FILE = "consumersurveys_v2_discovery.json"
+API_DISCOVERY_FILE = "surveys_v2_discovery.json"
 SCOPES = [
-    'https://www.googleapis.com/auth/consumersurveys',
-    'https://www.googleapis.com/auth/consumersurveys.readonly',
+    'https://www.googleapis.com/auth/surveys',
+    'https://www.googleapis.com/auth/surveys.readonly',
     'https://www.googleapis.com/auth/userinfo.email',
 ]
 

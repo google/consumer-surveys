@@ -11,7 +11,7 @@ def create_survey(cs, owner_emails):
     """Creates a new survey using a json object containing necessary survey fields.
 
     Args:
-        cs: The Surveys service used to send the HTTP requests.
+        cs: The Surveys service used to send the HTTP request.
         owner_emails: List of survey owner emails for a new survey.
     Returns:
         A dictionary containing the survey id of the created survey.

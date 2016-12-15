@@ -11,7 +11,7 @@ def list_surveys(cs):
     """Prints the surveys that are owned by the given user.
 
     Args:
-        cs: The Surveys Service used to send the HTTP requests.
+        cs: The Surveys Service used to send the HTTP request.
     """
     return cs.surveys().list().execute()
 

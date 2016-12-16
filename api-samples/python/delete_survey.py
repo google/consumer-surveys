@@ -1,4 +1,5 @@
 #!/usr/bin/env python2.7
+
 import argparse
 
 from googleapiclient.errors import HttpError
@@ -7,11 +8,11 @@ from oauth import get_service_account_auth
 
 
 def delete_survey(cs, survey_id):
-    """Deletes survey with the specified ID.
+    """Deletes a survey.
 
     Args:
         cs: The Survey Service used to send the HTTP request.
-        survey_id: The survey id of the survey to delete.
+        survey_id: The id of the survey to delete.
     """
     cs.surveys().delete(surveyUrlId=survey_id).execute()
 

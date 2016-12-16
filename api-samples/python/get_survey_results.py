@@ -8,7 +8,7 @@ from oauth import get_service_account_auth
 
 
 def get_survey_results(cs, survey_id):
-    """Writes the survey results into a xls file.
+    """Fetches the results of a survey.
 
     Args:
         cs: The Survey Service used to send the HTTP request.

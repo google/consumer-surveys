@@ -19,7 +19,7 @@ Here are the setup instructions to configure your environment to run the sample 
 
 ## Notes
 
-* When creating a survey, the owner emails must include both the Service account ID and the email that you use to log into the Google Developer Console.
+* When creating a survey, the owner emails must include both the Service account email address and the email that you use to log into the Google Developer Console.
 
 [1]: https://developers.google.com/surveys/v2/guides/getting-started-guide#activate-the-surveys-api
 [2]: https://console.developers.google.com/iam-admin/serviceaccounts/

@@ -1,14 +1,11 @@
 #!/usr/bin/env python2.7
 
-import os
-
 import httplib2
-from googleapiclient.discovery import build_from_document
+from googleapiclient.discovery import build
 from oauth2client import clientsecrets
 from oauth2client.service_account import ServiceAccountCredentials
 
 ACCOUNT_SECRET = 'account_secret.json'
-API_DISCOVERY_FILE = "surveys_v2_discovery.json"
 SCOPES = [
     'https://www.googleapis.com/auth/surveys',
     'https://www.googleapis.com/auth/surveys.readonly',
@@ -35,16 +32,4 @@ def get_service_account_auth():
                % e)
         return
 
-    # Load the local copy of the discovery document
-    f = file(os.path.join(os.path.dirname(__file__), API_DISCOVERY_FILE), "r")
-    discovery_file = f.read()
-    f.close()
-
-    # Construct a service from the local documents
-    try:
-        service = build_from_document(service=discovery_file, http=auth_http)
-    except ValueError, e:
-        print 'Error parsing discovery file "%s": %s' % (f.name, e)
-        return
-
-    return service
+    return build('surveys', 'v2', http=auth_http)

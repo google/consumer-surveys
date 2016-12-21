@@ -8,17 +8,17 @@ from googleapiclient.errors import HttpError
 from oauth import get_service_account_auth
 
 
-def get_survey(cs, survey_id):
+def get_survey(surveys_service, survey_id):
     """Gets a survey.
 
     Args:
-        cs: The Survey Service used to send the HTTP request.
+        surveys_service: The Survey Service used to send the HTTP request.
         survey_id: The id of the survey to get.
 
     Returns:
         A dictionary containing the survey fields.
     """
-    return cs.surveys().get(surveyUrlId=survey_id).execute()
+    return surveys_service.surveys().get(surveyUrlId=survey_id).execute()
 
 
 if __name__ == '__main__':

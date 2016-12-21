@@ -7,11 +7,11 @@ from googleapiclient.errors import HttpError
 from oauth import get_service_account_auth
 
 
-def create_survey(cs, owner_emails):
+def create_survey(surveys_service, owner_emails):
     """Creates a new survey using a json object containing necessary survey fields.
 
     Args:
-        cs: The Surveys service used to send the HTTP request.
+        surveys_service: The Surveys service used to send the HTTP request.
         owner_emails: List of survey owner emails for a new survey.
     Returns:
         A dictionary containing the survey id of the created survey.
@@ -59,7 +59,7 @@ def create_survey(cs, owner_emails):
         ]
     }
 
-    return cs.surveys().insert(body=body_def).execute()
+    return surveys_service.surveys().insert(body=body_def).execute()
 
 
 if __name__ == '__main__':

@@ -7,15 +7,15 @@ from googleapiclient.errors import HttpError
 from oauth import get_service_account_auth
 
 
-def get_survey_results(cs, survey_id):
+def get_survey_results(surveys_service, survey_id):
     """Fetches the results of a survey.
 
     Args:
-        cs: The Survey Service used to send the HTTP request.
+        surveys_service: The Survey Service used to send the HTTP request.
         survey_id: The survey id for which we are downloading the survey
                    results for.
     """
-    return cs.results().get_media(surveyUrlId=survey_id).execute()
+    return surveys_service.results().get_media(surveyUrlId=survey_id).execute()
 
 
 if __name__ == '__main__':

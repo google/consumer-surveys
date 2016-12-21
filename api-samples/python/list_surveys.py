@@ -7,13 +7,13 @@ from googleapiclient.errors import HttpError
 from oauth import get_service_account_auth
 
 
-def list_surveys(cs):
+def list_surveys(surveys_service):
     """Prints the surveys that are owned by the given user.
 
     Args:
-        cs: The Surveys Service used to send the HTTP request.
+        surveys_service: The Surveys Service used to send the HTTP request.
     """
-    return cs.surveys().list().execute()
+    return surveys_service.surveys().list().execute()
 
 if __name__ == '__main__':
     try:

@@ -7,11 +7,11 @@ from googleapiclient.errors import HttpError
 from oauth import get_service_account_auth
 
 
-def start_survey(cs, survey_id, max_cost_per_response):
+def start_survey(surveys_service, survey_id, max_cost_per_response):
     """Sends the survey to the review process and it is then started.
 
     Args:
-        cs: The Surveys Service used to send the HTTP request.
+        surveys_service: The Surveys Service used to send the HTTP request.
         survey_id: The id of the survey to start.
         max_cost_per_response: Maximum cost to pay for incidence pricing
                                responses. For more details, visit
@@ -21,7 +21,7 @@ def start_survey(cs, survey_id, max_cost_per_response):
         json_spec = {'maxCostPerResponseNanos': max_cost_per_response}
     else:
         json_spec = {}
-    cs.surveys().start(resourceId=survey_id, body=json_spec).execute()
+    surveys_service.surveys().start(resourceId=survey_id, body=json_spec).execute()
 
 
 if __name__ == '__main__':

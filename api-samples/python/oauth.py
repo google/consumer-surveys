@@ -7,6 +7,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 
 def get_service_account_auth():
+    # [START google_surveys_auth]
     json_keyfile_name = 'account_secret.json'
     scopes = [
         'https://www.googleapis.com/auth/surveys',
@@ -24,4 +25,6 @@ def get_service_account_auth():
         return
 
     surveys_service = build('surveys', 'v2', http=auth_http)
+    # [END google_surveys_auth]
+
     return surveys_service

@@ -57,6 +57,12 @@ namespace GoogleSurveysSample
         // Start an existing survey.
         private static string START = "start";
 
+        // Get an existing survey.
+        private static string GET = "get";
+
+        // Delete an existing survey.
+        private static string DELETE = "delete";
+
         // Fetch the result of an existing survey.
         private static string FETCH = "fetch";
 
@@ -69,6 +75,8 @@ namespace GoogleSurveysSample
             operations.Add(CREATE);
             operations.Add(SET_RESPONSE_COUNT);
             operations.Add(START);
+            operations.Add(GET);
+            operations.Add(DELETE);
             operations.Add(FETCH);
             operations.Add(LIST);
 
@@ -145,6 +153,28 @@ namespace GoogleSurveysSample
                     return;
                 }
                 StartSurvey(cs, surveyId);
+            }
+
+            if (operation == GET)
+            {
+                if (surveyId == null)
+                {
+                    Console.WriteLine("\nsurveyId must be specified when getting a survey.");
+                    return;
+                }
+                Survey survey = GetSurvey(cs, surveyId);
+                Console.WriteLine("\nSurvey title: " + survey.Title);
+            }
+
+            if (operation == DELETE)
+            {
+                if (surveyId == null)
+                {
+                    Console.WriteLine("\nsurveyId must be specified when deleting a survey.");
+                    return;
+                }
+                DeleteSurvey(cs, surveyId);
+                Console.WriteLine("\nDeleted Survey " + surveyId);
             }
 
             if (operation == SET_RESPONSE_COUNT)
@@ -259,17 +289,27 @@ namespace GoogleSurveysSample
         }
 
         /// <summary>
-        /// Returns the Survey object for tbe specified survey id.
+        /// Gets information about a survey.
         /// </summary>
         /// <param name="cs"> The survey service used to send the HTTP requests.</param>
-        /// <param name="surveyId"> The survey id of the Survey object we need.</param>
+        /// <param name="surveyId"> The survey id of the survey we are getting.</param>
         /// <returns>
         /// A Survey object containing information about the survey.
-        /// </returns> 
+        /// </returns>
         private static Survey GetSurvey(SurveysService cs, String surveyId)
         {
             Survey survey = cs.Surveys.Get(surveyId).Execute();
             return survey;
+        }
+
+        /// <summary>
+        /// Deletes a survey.
+        /// </summary>
+        /// <param name="cs"> The survey service used to send the HTTP requests.</param>
+        /// <param name="surveyId"> The survey id of the survey we are deleting.</param>
+        private static void DeleteSurvey(SurveysService cs, String surveyId)
+        {
+            cs.Surveys.Delete(surveyId).Execute();
         }
 
         /// <summary>

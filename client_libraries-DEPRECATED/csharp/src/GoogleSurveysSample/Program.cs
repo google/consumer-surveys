@@ -34,7 +34,6 @@ To list the list of surveys you are an owner of:
 */
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Surveys.v2;
 using Google.Apis.Surveys.v2.Data;
